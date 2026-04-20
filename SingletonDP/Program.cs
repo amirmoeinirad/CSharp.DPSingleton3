@@ -5,7 +5,7 @@
 // Main Concept: The Singleton Design Pattern
 // Version: 3.0
 
-// In this pattern, a class has only one instance and provides a global point of access to it.
+// In this pattern, a class has only one instance.
 // This is useful when exactly one object is needed to coordinate actions across the system or application.
 // Examples include database connections pool, logging manager, and configuration settings manager.
 
@@ -16,12 +16,9 @@
 namespace SingletonDP
 {
     public sealed class Singleton
-    {
-        // Field 1
-        // Private static field (created only once)                
-        // Can it be non-static? No, because we need to access it without creating an instance of the class from outside.
-        // Furthermore, since the accessor property 'Instance' is staic, it cannot access an instance field.
-        // It is private so that it cannot be accessed directly from outside the class.
+    {                              
+        // Since the accessor property 'Instance' is static, it cannot access an instance field.
+        // This field provides single instance, thread safety and lazy initialization.
         private static readonly Lazy<Singleton> _instance = new(() => new Singleton());
 
 
@@ -32,16 +29,14 @@ namespace SingletonDP
             Console.WriteLine("Creating the Singleton instance...");
         }
 
-
-        // Public property to get the single instance.
+        
         // This property provides a global access point to the Singleton instance.        
         public static Singleton Instance
         {
             get { return _instance.Value; }
         }
 
-
-        // Example method to demonstrate functionality.
+        
         public void ShowMessage() => Console.WriteLine("Hello from the Singleton object!\n");
     }
 
@@ -57,8 +52,7 @@ namespace SingletonDP
             Console.WriteLine("The Singleton Design Pattern in C#.NET.");
             Console.WriteLine("---------------------------------------\n");
 
-
-            // We cannot create an instance of Singleton directly because its constructor is private.            
+                      
             Singleton s1 = Singleton.Instance;
             s1.ShowMessage();
 
